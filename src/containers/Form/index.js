@@ -16,7 +16,8 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
-        onSuccess(); // Ajout de onSuccess car manquant.
+        // Ajout de onSuccess car manquant.
+        onSuccess();
       } catch (err) {
         setSending(false);
         onError(err);
@@ -33,7 +34,8 @@ const Form = ({ onSuccess, onError }) => {
           <Select
             selection={["Personel", "Entreprise"]}
             onChange={() => null}
-            label="Personel / Entreprise"
+            // Correction orthographe (auparavant "Personel")
+            label="Personnel / Entreprise"
             type="large"
             titleEmpty
           />
