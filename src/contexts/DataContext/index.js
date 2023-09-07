@@ -19,14 +19,34 @@ export const api = {
 export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  // Ajout de la déclaration d'état de "last"
+  const [last, setLast] = useState(null);
+
+  // Ajout de la fonction "getLast" qui prend "items" en argument
+  const getLast = (items) => {
+    // "sort" sert à trier les éléments d'un tableau en les comparant (ici evtA et evtB)
+    const lastItemByDate = items.sort((evtA, evtB) =>
+    // si "evtA" > à "evtB" il renvoie -1 sinon 1. Les événements sont triés du plus récent au moins récent.
+    new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)
+    // Et MàJ "last" avec le premier élément de lastItemByDate (index 0).
+    setLast(lastItemByDate[0])
+  }
+
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
+      // Ajout de "setLast"
+      setLast();
     } catch (err) {
       setError(err);
     }
   }, []);
+
   useEffect(() => {
+    if (data) {
+      // Ajout de "getLast" avec comme argument les events de data
+      getLast(data.events);
+    }
     if (data) return;
     getData();
   });
@@ -37,6 +57,8 @@ export const DataProvider = ({ children }) => {
       value={{
         data,
         error,
+        // Ajout de last
+        last,
       }}
     >
       {children}

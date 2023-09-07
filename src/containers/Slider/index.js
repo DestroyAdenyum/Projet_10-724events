@@ -7,9 +7,11 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
+
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
+
   const nextCard = () => {
     setTimeout(
       // Ajout de -1 car l'index allait de 0 à 3 alors qu'il n'y a que 3 images (0 1 2)
@@ -17,9 +19,11 @@ const Slider = () => {
       5000
     );
   };
+
   useEffect(() => {
     nextCard();
   });
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
