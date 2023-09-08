@@ -13,11 +13,14 @@ const Slider = () => {
   );
 
   const nextCard = () => {
-    setTimeout(
-      // Ajout de -1 car l'index allait de 0 à 3 alors qu'il n'y a que 3 images (0 1 2)
-      () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
-      5000
-    );
+    // Ajout de la vérification si la lenght de "byDateDesc" est définie pour l'erreur : length undefined
+    if (byDateDesc && byDateDesc.length > 0) {
+      setTimeout(
+        // Ajout de -1 à la longueur de "byDataDesc" car il était plus long que le nombre d'index d'où la "page blanche"
+        () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
+        5000
+      );
+    }
   };
 
   useEffect(() => {
@@ -27,9 +30,10 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
+        // Changement de place de la key
+        <div key={event.title}>
           <div
-            key={event.title}
+            // Ancien emplacement de la key
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
@@ -45,18 +49,25 @@ const Slider = () => {
           </div>
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
+              {/* Changement de _ par dotItem (bouton) */}
+              {byDateDesc.map((dotItem, radioIdx) => (
                 <input
-                  key={`${event.id}`}
+                  // Changement de la key anciennement key={`${event.id}`}
+                  // clé construite en utilisant le titre de l'élément dotItem
+                  // et en  en ajoutant le texte "radio-" ce qui la rend unique.
+                  key={`radio-${dotItem.title}`}
                   type="radio"
                   name="radio-button"
-                  // Modification d'idx en index
+                  // Modification d'idx (= indice de l'élément dans le tableau byDataDesc) en index (= indice de la carte du slider affiché)
                   checked={index === radioIdx}
+                  // Ajout de "disabled" pour que le slider soit en lecture seule
+                  // Cela empêchera l'utilisateur d'interagir avec les boutons
+                  disabled
                 />
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
