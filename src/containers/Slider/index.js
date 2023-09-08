@@ -9,7 +9,9 @@ const Slider = () => {
   const [index, setIndex] = useState(0);
 
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+    // Changement de < en > pour inverser le tri des évènements dans le slider
+    // du plus récent au plus ancien.
+    new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
   );
 
   const nextCard = () => {
