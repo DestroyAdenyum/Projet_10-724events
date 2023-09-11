@@ -24,12 +24,15 @@ export const DataProvider = ({ children }) => {
 
   // Ajout de la fonction "getLast" qui prend "items" en argument
   const getLast = (items) => {
-    // "sort" sert à trier les éléments d'un tableau en les comparant (ici evtA et evtB)
-    const lastItemByDate = items.sort((evtA, evtB) =>
-    // si "evtA" > à "evtB" il renvoie -1 sinon 1. Les événements sont triés du plus récent au moins récent.
-    new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)
-    // Et MàJ "last" avec le premier élément de lastItemByDate (index 0).
-    setLast(lastItemByDate[0])
+    // Vérification si "items" est défini et qu'il a au moins un élément.
+    if (items && items.length > 0) {
+      // "sort" sert à trier les éléments d'un tableau en les comparant (ici evtA et evtB)
+      const lastItemByDate = items.sort((evtA, evtB) =>
+      // si "evtA" > à "evtB" il renvoie -1 sinon 1. Les événements sont triés du plus récent au moins récent.
+      new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)
+      // Et MàJ "last" avec le premier élément de lastItemByDate (index 0).
+      setLast(lastItemByDate[0])
+    }
   }
 
   const getData = useCallback(async () => {
