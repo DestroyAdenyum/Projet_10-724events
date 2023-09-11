@@ -53,12 +53,12 @@ const Page = () => {
       </section>
       <section className="EventsContainer">
         <h2 className="Title">Nos réalisations</h2>
-        <EventList />
+        <EventList data-testid="eventList-testid" />
       </section>
       <section className="PeoplesContainer">
         <h2 className="Title">Notre équipe</h2>
         <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
-        <div className="ListContainer">
+        <div className="ListContainer" data-testid="listPeople-testid">
           <PeopleCard
             imageSrc="/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png"
             name="Samira"
@@ -113,7 +113,7 @@ const Page = () => {
         </Modal>
       </div>
     </main>
-    <footer className="row">
+    <footer className="row" data-testid="footer-testid">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
         {/* Ajout de la vérification que "last" existe avant d'exécuter "EventCard" */}
@@ -124,6 +124,7 @@ const Page = () => {
           small
           // Modification du label = "boom" par le type
           label={last?.type}
+          data-testid="lastEventCard-testid"
         />}
       </div>
       <div className="col contact">
