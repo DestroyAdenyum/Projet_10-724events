@@ -62,9 +62,6 @@ const Slider = () => {
                   name="radio-button"
                   // Modification d'idx (= indice de l'élément dans le tableau byDataDesc) en index (= indice de la carte du slider affiché)
                   checked={index === radioIdx}
-                  // Ajout de "disabled" pour que le slider soit en lecture seule
-                  // Cela empêchera l'utilisateur d'interagir avec les boutons
-                  disabled
                 />
               ))}
             </div>
