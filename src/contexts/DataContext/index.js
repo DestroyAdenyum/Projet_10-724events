@@ -20,6 +20,7 @@ export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
   // Ajout de la déclaration d'état de "last"
+  // Cette déclaration d'état permet de conserver la dernière date de chargement des données.
   const [last, setLast] = useState(null);
 
   // Ajout de la fonction "getLast" qui prend "items" en argument
@@ -38,7 +39,7 @@ export const DataProvider = ({ children }) => {
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
-      // Ajout de "setLast"
+      // Ajout de "setLast" pour la MàJ de la valeur de "last"
       setLast();
     } catch (err) {
       setError(err);
@@ -60,7 +61,8 @@ export const DataProvider = ({ children }) => {
       value={{
         data,
         error,
-        // Ajout de last
+        // Ajout de last comme objet qui contient la dernière date de chargement des données
+        // pour que les childrens puissent y avoir accès
         last,
       }}
     >

@@ -15,10 +15,12 @@ const Slider = () => {
   );
 
   const nextCard = () => {
-    // Ajout de la vérification si la lenght de "byDateDesc" est définie pour l'erreur : length undefined
+    // Ajout de la vérification si "byDateDesc" existé et a une valeur
+    // et si la lenght de "byDateDesc" est supérieure à 0
+    // Si oui on exécute setTimeout
     if (byDateDesc && byDateDesc.length > 0) {
       setTimeout(
-        // Ajout de -1 à la longueur de "byDataDesc" car il était plus long que le nombre d'index d'où la "page blanche"
+        // Ajout du -1 pour vérifier si la prochaine carte à afficher est la dernière carte du slider
         () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
         5000
       );
@@ -62,6 +64,7 @@ const Slider = () => {
                   name="radio-button"
                   // Modification d'idx (= indice de l'élément dans le tableau byDataDesc) en index (= indice de la carte du slider affiché)
                   checked={index === radioIdx}
+                  readOnly
                 />
               ))}
             </div>
